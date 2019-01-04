@@ -42,6 +42,10 @@ class GflagsConan(ConanFile):
         cmake.definitions["REGISTER_BUILD_DIR"] = False
         cmake.definitions["REGISTER_INSTALL_PREFIX"] = False
         cmake.definitions["GFLAGS_NAMESPACE"] = self.options.namespace
+        if self.settings.os == "Android":
+            cmake.definitions["HAVE_SYS_STAT_H"] = True
+            cmake.definitions["HAVE_INTTYPES_H"] = True
+            cmake.definitions["INTTYPES_FORMAT"] = "C99"
 
         cmake.configure()
         cmake.build()
